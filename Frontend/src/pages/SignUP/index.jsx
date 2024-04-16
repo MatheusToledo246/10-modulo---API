@@ -12,18 +12,21 @@ import { Container, Form, Background } from "./styles";
 
 export function SignUP(){ 
     const [name, setName] = useState("");
-    const [email, setEmail ] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword ] = useState("");
 
-    function handleSigUp(){
-        if(!name || !email || !password) {
-           return alert("Preencha todos os campos!");
+    function handleSubmit(e){
+        e.preventDefault();
+
+        console.log(name,email,password)
+         if(!name || !email || !password) {
+            return alert("Preencha todos os campos!");
         }
-    }
+     }
 
     api.post("/users", {name, email, password})
     .then(() => {
-        alert("Usuário cadastrado com sucesso!");
+         alert("Usuário cadastrado com sucesso!");  
     })
     .catch(error => {
         if(error.response){
@@ -36,7 +39,7 @@ export function SignUP(){
     return (
         <Container>
             <Background />
-            <Form>
+            <Form onSubmit={handleSubmit}>
                 <h1>Rocket Notes</h1>
                 <p>Aplicação para salvar e gerenciar seus links úteis.</p>
            
@@ -61,9 +64,10 @@ export function SignUP(){
                     type="password"
                     icon={FiLock}
                     onChange={e => setPassword(e.target.value)}
+                   
                 /> 
 
-                <Button title="Cadastrar" onClick={handleSigUp} />  
+                <Button title="Cadastrar" type="submit" />
 
                 <Link to="/">
                     Voltar para o login
