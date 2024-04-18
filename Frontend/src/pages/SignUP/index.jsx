@@ -15,14 +15,10 @@ export function SignUP(){
     const [email, setEmail] = useState("");
     const [password, setPassword ] = useState("");
 
-    function handleSubmit(e){
-        e.preventDefault();
-
-        console.log(name,email,password)
-         if(!name || !email || !password) {
-            return alert("Preencha todos os campos!");
-        }
-     }
+    function handleSignUp() {
+        if(!name || !email || !password) {
+        return alert("Preencha todos os campos!");
+    }
 
     api.post("/users", {name, email, password})
     .then(() => {
@@ -33,13 +29,13 @@ export function SignUP(){
             alert(error.response.data.message);
         }else {
             alert("Não foi possível cadastrar");
-        }
-    });
-
+         }
+        });
+    }
     return (
         <Container>
             <Background />
-            <Form onSubmit={handleSubmit}>
+            <Form>
                 <h1>Rocket Notes</h1>
                 <p>Aplicação para salvar e gerenciar seus links úteis.</p>
            
@@ -67,7 +63,7 @@ export function SignUP(){
                    
                 /> 
 
-                <Button title="Cadastrar" type="submit" />
+                <Button title="Cadastrar"  onClick={handleSignUp}/>
 
                 <Link to="/">
                     Voltar para o login
