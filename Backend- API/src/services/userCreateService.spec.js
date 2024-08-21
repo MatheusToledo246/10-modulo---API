@@ -12,8 +12,6 @@ it("user should be create", async () => {
    const userCreateService = new UserCreateService(userRepositoryInMemory);
    const userCreated = await userCreateService.execute(user);
 
-   console.log(userCreated)
-
    expect(userCreated).toHaveProperty("id");
 
 
